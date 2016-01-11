@@ -1,0 +1,5 @@
+127.0.0.1   localhost
+172.28.128.2 controller
+172.28.128.3 network
+172.28.128.4 compute01
+172.28.128.5 compute02
