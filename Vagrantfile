@@ -6,32 +6,43 @@ VAGRANTFILE_API_VERSION = "2"
 
 # Private cloud machine configuration for base Openstack install
 machines = {
-  'controller'    => ['172.28.128.2', '8', '2048', false],
-  'network'       => ['172.28.128.3', '2', '1024', false], 
-  'compute01'     => ['172.28.128.4', '2', '2048', false],
-  'compute02'     => ['172.28.128.5', '2', '2048', false]
+  'controller'    => ['172.28.128.2', '2', '512', false],
+  'network'       => ['172.28.128.3', '2', '512', false], 
+  'compute01'     => ['172.28.128.4', '2', '512', false],
+  'compute02'     => ['172.28.128.5', '2', '512', false]
 }
 
 Vagrant.configure (VAGRANTFILE_API_VERSION) do |config|
 
+  # DNS 
+  config.landrush.enabled = true
+  config.landrush.tld = "vm"
+
+  # Disable from re-generating SSH keys on every run of "vagrant up"
   config.ssh.insert_key = false
 
   machines.each do | (name, cfg) |
 
-    ipaddr, cpu, ram, gui = cfg
+    ip, cpu, ram, gui = cfg
 
     config.vm.define name do |machine|
       machine.vm.box = 'ubuntu/trusty64'
       machine.vm.hostname = name
-      machine.vm.network "private_network", :type => 'static', :ip => ipaddr, :name => 'vboxnet0', :adapter => 2
+      machine.vm.network "private_network", :ip => ip
 
+      # Ansible Provisioner
+      machine.vm.provision "ansible" do |ansible|
+        ansible.verbose = ""
+        ansible.playbook = "site.yml"
+      end
+
+      # Set VM resources
       machine.vm.provider 'virtualbox' do |vbox|
         vbox.memory = ram
         vbox.cpus = cpu
         vbox.gui = gui
       end
 
-      machine.vm.provision "shell", :inline => 'cp -f /vagrant/etc/hosts /etc/hosts'
     end
 
   end
