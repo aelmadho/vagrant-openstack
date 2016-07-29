@@ -1,1 +1,5 @@
-
+[all]
+controller.vm
+network.vm
+compute01.vm
+compute02.vm
