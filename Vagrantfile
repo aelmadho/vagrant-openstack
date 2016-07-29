@@ -6,10 +6,10 @@ VAGRANTFILE_API_VERSION = "2"
 
 # Private cloud machine configuration for base Openstack install
 machines = {
-  'controller'    => ['172.28.128.2', '2', '512', false],
-  'network'       => ['172.28.128.3', '2', '512', false], 
-  'compute01'     => ['172.28.128.4', '2', '512', false],
-  'compute02'     => ['172.28.128.5', '2', '512', false]
+  'controller.vm'    => ['172.28.128.2', '2', '512', false],
+  'network.vm'       => ['172.28.128.3', '2', '512', false], 
+  'compute01.vm'     => ['172.28.128.4', '2', '512', false],
+  'compute02.vm'     => ['172.28.128.5', '2', '512', false]
 }
 
 Vagrant.configure (VAGRANTFILE_API_VERSION) do |config|
