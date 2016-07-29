@@ -5,7 +5,7 @@ Provisioning and deployment environment for openstack cloud platform.  This will
 
 Utilizing internal host-only network to allow for management inerfaces on the various openstack related services, keeping the NAT IP as the main service IP.  This is being validated and is in work in progress.
 
-![Overview](docs/openstack_vagrant_vbox)
+![Overview](docs/openstack_vagrant_vbox.jpg)
 
 ### Requirements:
 
